@@ -1,11 +1,14 @@
 package com.codessquad.qna.controller;
 
 import com.codessquad.qna.domain.dto.UserDto;
+import com.codessquad.qna.exception.BusinessException;
+import com.codessquad.qna.exception.ErrorCode;
 import com.codessquad.qna.service.UserService;
 import com.codessquad.qna.util.HttpSessionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -34,5 +37,10 @@ public class LoginController {
     public String logout(HttpSession session) {
         session.removeAttribute(HttpSessionUtils.USER_SESSION_KEY);
         return "redirect:/";
+    }
+
+    @GetMapping("/error")
+    public void error(){
+        throw new BusinessException(ErrorCode.NOT_FOUND);
     }
 }
